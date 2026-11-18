@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#06131C">
+    <meta name="description" content="Explore anime with CineBot.">
+
+    <title>CINEBOT | Anime Details</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <main class="details-page">
+
+        <!-- PREMIUM HEADER -->
+        <header class="details-topbar">
+
+            <a href="/" class="details-logo">
+                <span class="logo-icon">✦</span>
+                <span>CINE<span class="logo-dot">BOT</span></span>
+            </a>
+
+            <a href="/" class="back-button">
+                <span class="back-arrow">←</span>
+                <span>Back to Search</span>
+            </a>
+
+        </header>
+
+
+        <!-- ANIME DETAILS -->
+        <section class="details-content">
+
+            <div id="animeDetails"
+                 class="anime-details-container"
+                 data-anime-id="{{ anime_id }}">
+
+                <div class="details-loading">
+
+                    <div class="loading-spinner"></div>
+
+                    <h2>Loading anime details...</h2>
+
+                    <p>Preparing your anime experience.</p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="main-footer">
+
+            <p>
+                © 2026 <span>CINEBOT</span>
+                Discover your next favourite story.
+            </p>
+
+        </footer>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='anime.js') }}"></script>
+
+</body>
+</html>

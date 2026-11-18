@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineBot - Movie Details</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="details-page">
+
+    <header class="details-topbar">
+        <a href="/" class="details-logo">
+            <span class="logo-icon">✦</span>
+            <span>CINE<span class="logo-dot">BOT</span></span>
+        </a>
+
+        <p>ENTER THE CINEMATIC MULTIVERSE</p>
+
+        <a href="/" class="back-button">← Back to Search</a>
+    </header>
+
+    <main class="details-main">
+
+        <div id="movieDetails"
+             data-category="{{ category }}"
+             data-item-id="{{ item_id }}">
+
+            <div class="details-loading">
+                <div class="magic-orb"></div>
+                <h2>Opening the multiverse...</h2>
+                <p>Summoning movie details</p>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="{{ url_for('static', filename='status.js') }}"></script>
+    <script src="{{ url_for('static', filename='details.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color" content="#050F18">
+    <meta name="description" content="Explore your favourite stories with CineBot.">
+
+    <title>{{ universe.name }} | CineBot</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='universe.css') }}">
+</head>
+
+<body class="universe-page" data-universe="{{ universe_type }}">
+
+    <!-- SIDEBAR -->
+    <aside class="universe-sidebar">
+
+        <a href="/" class="universe-logo">
+            <span class="logo-symbol">✦</span>
+            <span>CINE<span>BOT</span></span>
+        </a>
+
+        <div class="sidebar-label">MAIN MENU</div>
+
+        <nav class="universe-nav">
+
+            <a href="/" class="universe-nav-link">
+                <span>⌂</span>
+                Home
+            </a>
+
+            <a href="/universe/anime"
+               class="universe-nav-link {% if universe_type == 'anime' %}active{% endif %}">
+                <span>✦</span>
+                Anime
+            </a>
+
+            <a href="/universe/movies"
+               class="universe-nav-link {% if universe_type == 'movies' %}active{% endif %}">
+                <span>▶</span>
+                Movies
+            </a>
+
+            <a href="/universe/tv"
+               class="universe-nav-link {% if universe_type == 'tv' %}active{% endif %}">
+                <span>▣</span>
+                TV Shows
+            </a>
+
+            <a href="/discover"
+               class="universe-nav-link {% if universe_type == 'discover' %}active{% endif %}">
+                <span>◈</span>
+                Discover
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-mini-card">
+                <span>✧</span>
+                <p>Every story has a universe.</p>
+            </div>
+
+            <a href="/" class="back-home-link">← Back to Home</a>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="universe-main">
+
+        <!-- TOP BAR -->
+        <header class="universe-topbar">
+
+            <div>
+                <span class="topbar-label">CINEBOT / EXPLORE</span>
+                <p>Welcome to your next adventure.</p>
+            </div>
+
+            <a href="/" class="topbar-home">Home ↗</a>
+
+        </header>
+
+
+        <!-- HERO -->
+        <section class="universe-hero">
+
+            <div class="universe-hero-glow"></div>
+
+            <div class="universe-hero-content">
+
+                <span class="universe-eyebrow">
+                    {{ universe.eyebrow }}
+                </span>
+
+                <div class="universe-hero-icon">
+                    {{ universe.icon }}
+                </div>
+
+                <h1>{{ universe.name }}</h1>
+
+                <p>{{ universe.description }}</p>
+
+                <div class="universe-hero-actions">
+
+                    <a href="#universeExplore" class="universe-primary-button">
+                        Explore Universe <span>→</span>
+                    </a>
+
+                    <a href="/discover" class="universe-secondary-button">
+                        Discover Something New
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="universe-hero-decoration">
+                <div class="hero-ring ring-one"></div>
+                <div class="hero-ring ring-two"></div>
+                <div class="hero-ring ring-three"></div>
+                <div class="hero-star">✦</div>
+            </div>
+
+            <span class="universe-hero-number">CINEBOT 03</span>
+
+        </section>
+
+
+        <!-- SEARCH -->
+        <section class="universe-search-section" id="universeExplore">
+
+            <div class="universe-section-heading">
+                <div>
+                    <span class="section-eyebrow">FIND YOUR NEXT FAVOURITE</span>
+                    <h2>Explore the Universe</h2>
+                    <p>Search through countless stories and discover something amazing.</p>
+                </div>
+            </div>
+
+            <div class="universe-search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    id="universeSearchInput"
+                    placeholder="Search {{ universe.name }}..."
+                    autocomplete="off"
+                >
+
+                <button id="universeSearchButton">
+                    Search <span>→</span>
+                </button>
+
+            </div>
+
+            <div class="universe-search-message" id="universeSearchMessage"></div>
+
+        </section>
+
+
+        <!-- GENRES -->
+        <section class="universe-section" id="universeGenresSection">
+
+            <div class="universe-section-heading">
+                <div>
+                    <span class="section-eyebrow">EXPLORE BY CATEGORY</span>
+                    <h2>Explore Genres</h2>
+                    <p>Find stories that match your taste.</p>
+                </div>
+            </div>
+
+            <div class="universe-genre-grid" id="universeGenreGrid">
+
+                <div class="universe-loading">
+                    <span class="loading-spinner"></span>
+                    Loading genres...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRENDING -->
+        <section class="universe-section">
+
+            <div class="universe-section-heading">
+
+                <div>
+                    <span class="section-eyebrow">WHAT EVERYONE IS WATCHING</span>
+                    <h2>Trending Now</h2>
+                    <p>Stories gaining attention right now.</p>
+                </div>
+
+                <span class="universe-section-number">01 / TRENDING</span>
+
+            </div>
+
+            <div class="universe-content-grid" id="universeTrendingGrid">
+
+                <div class="universe-loading">
+                    <span class="loading-spinner"></span>
+                    Loading trending content...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- POPULAR -->
+        <section class="universe-section">
+
+            <div class="universe-section-heading">
+
+                <div>
+                    <span class="section-eyebrow">THE COMMUNITY FAVOURITES</span>
+                    <h2>Popular Picks</h2>
+                    <p>Discover some of the most loved stories.</p>
+                </div>
+
+                <span class="universe-section-number">02 / POPULAR</span>
+
+            </div>
+
+            <div class="universe-content-grid" id="universePopularGrid">
+
+                <div class="universe-loading">
+                    <span class="loading-spinner"></span>
+                    Loading popular content...
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DISCOVER SPECIAL SECTION -->
+        {% if universe_type == 'discover' %}
+
+        <section class="discover-feature-section">
+
+            <div class="discover-feature-content">
+                <span class="section-eyebrow">YOUR NEXT OBSESSION</span>
+
+                <h2>Step Beyond the Ordinary.</h2>
+
+                <p>
+                    Explore hidden gems, unexpected favourites and stories
+                    from different universes.
+                </p>
+
+                <button id="randomDiscoverButton" class="universe-primary-button">
+                    Surprise Me <span>✦</span>
+                </button>
+            </div>
+
+            <div class="discover-feature-decoration">◈</div>
+
+        </section>
+
+        <section class="universe-section">
+
+            <div class="universe-section-heading">
+                <div>
+                    <span class="section-eyebrow">LESSER-KNOWN MASTERPIECES</span>
+                    <h2>Hidden Gems</h2>
+                    <p>Great stories waiting to be discovered.</p>
+                </div>
+            </div>
+
+            <div class="universe-content-grid" id="universeHiddenGrid">
+                <div class="universe-loading">
+                    <span class="loading-spinner"></span>
+                    Finding hidden gems...
+                </div>
+            </div>
+
+        </section>
+
+        {% endif %}
+
+
+        <!-- SEARCH RESULTS -->
+        <section class="universe-section universe-results-section" id="universeResultsSection" hidden>
+
+            <div class="universe-section-heading">
+                <div>
+                    <span class="section-eyebrow">YOUR SEARCH</span>
+                    <h2>Search Results</h2>
+                </div>
+            </div>
+
+            <div class="universe-content-grid" id="universeSearchResults"></div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="universe-footer">
+
+            <a href="/" class="universe-logo">
+                <span class="logo-symbol">✦</span>
+                <span>CINE<span>BOT</span></span>
+            </a>
+
+            <p>One platform. Countless stories.</p>
+
+            <span>© 2026 CineBot. Explore beyond limits.</span>
+
+        </footer>
+
+    </main>
+
+
+    <script src="{{ url_for('static', filename='universe.js') }}"></script>
+
+</body>
+</html>

@@ -1,0 +1,151 @@
+/* =========================================================
+   CINEBOT 3.0 — GLASS THEME
+   Frosted panels over a soft glowing background.
+   Loaded after style.css and universe.css so it takes priority.
+========================================================= */
+
+:root {
+    --glass-bg: rgba(255, 255, 255, 0.09);
+    --glass-bg-strong: rgba(12, 26, 36, 0.62);
+    --glass-bg-hover: rgba(255, 255, 255, 0.14);
+    --glass-border: rgba(255, 255, 255, 0.22);
+    --glass-accent: rgba(53, 224, 208, 0.45);
+    --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    --glass-blur: blur(18px) saturate(160%);
+}
+
+/* Soft coloured light behind everything, so the glass has something to blur. */
+body {
+    background-attachment: fixed;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+        radial-gradient(circle at 12% 22%, rgba(53, 224, 208, 0.45), transparent 32%),
+        radial-gradient(circle at 88% 45%, rgba(40, 120, 255, 0.35), transparent 38%),
+        radial-gradient(circle at 42% 88%, rgba(53, 224, 208, 0.3), transparent 36%);
+}
+
+/* Let the glow show through the page wrappers instead of hiding it. */
+.app-container,
+.main-content,
+.universe-main,
+.details-main,
+.details-page,
+.universe-page {
+    background: transparent !important;
+}
+
+/* Main frosted panels (home page, universe pages and details pages). */
+.sidebar,
+.universe-sidebar,
+.search-container,
+.universe-search-box,
+.filter-panel,
+.content-section,
+.universe-section,
+.universe-search-section,
+.universe-topbar,
+.universe-footer,
+.main-footer,
+.welcome-card,
+.details-topbar,
+.movie-hero,
+.details-section,
+.discover-feature-section {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Cards: frosted, then lift and brighten on hover. */
+.result-card,
+.universe-content-card,
+.quick-card,
+.browse-card,
+.universe-genre-card,
+.cast-card,
+.provider-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+    transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.result-card:hover,
+.universe-content-card:hover,
+.quick-card:hover,
+.browse-card:hover,
+.universe-genre-card:hover,
+.cast-card:hover,
+.provider-card:hover {
+    transform: translateY(-4px);
+    background: var(--glass-bg-hover);
+    border-color: var(--glass-accent);
+}
+
+/* Buttons and nav links get a lighter glass finish. */
+.category-button,
+.nav-link,
+.universe-nav-link,
+.back-button,
+.details-logo,
+.filter-actions button,
+.popular-searches button {
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+}
+
+/* The live search suggestions box, which is added by suggestions.js.
+   "body" is included so this rule beats the one injected by that file. */
+body .cb-suggestions {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.5);
+}
+
+body .cb-suggestion:hover,
+body .cb-suggestion.active {
+    background: rgba(53, 224, 208, 0.12);
+}/* Elements that style.css makes solid. Make them glass too. */
+
+/* Search bar on the home page (style.css uses a more specific selector) */
+.hero .search-container {
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* Category cards on the home page */
+#categoriesSection .browse-card {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+}
+
+#categoriesSection .browse-card:hover {
+    background: var(--glass-bg-hover);
+}
+
+/* Quick search buttons: frosted, but keep the active state */
+.hero .popular-searches button,
+.hero .search-categories .category-button:not(.active) {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}

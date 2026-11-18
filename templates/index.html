@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#050F18">
+    <meta name="description" content="Discover anime, movies and TV shows with CineBot.">
+
+    <title>CineBot | Discover Your Next Favourite</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="/" class="logo">
+            <span class="logo-icon">✦</span>
+
+            <span class="logo-text">
+                <strong>CINE<span>BOT</span></strong>
+                <small>DISCOVERY SYSTEM <b>3.0</b></small>
+            </span>
+        </a>
+
+        <p class="sidebar-label">DISCOVER</p>
+
+        <nav class="navigation" aria-label="Main navigation">
+
+            <a href="/" class="nav-link active">
+                <span class="nav-icon">⌂</span>
+                <span>Home</span>
+            </a>
+
+           
+            <a href="#filterSection" class="nav-link">
+                <span class="nav-icon">⚙</span>
+                <span>Advanced Filters</span>
+            </a>
+
+            <a href="#popularSection" class="nav-link">
+                <span class="nav-icon">✦</span>
+                <span>Popular Anime</span>
+            </a>
+
+            <a href="#categoriesSection" class="nav-link">
+                <span class="nav-icon">▦</span>
+                <span>Universes</span>
+            </a>
+
+        </nav>
+
+        <!-- EXTERNAL -->
+        <p class="sidebar-label external-label">EXTERNAL</p>
+
+        <nav class="navigation" aria-label="External websites">
+
+            <a href="https://hianimes.se/home"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="nav-link">
+
+                <span class="nav-icon">↗</span>
+                <span>HiAnime</span>
+
+            </a>
+
+        </nav>
+
+        <div class="sidebar-bottom">
+
+            <div class="sidebar-status">
+                <span class="status-dot"></span>
+                SYSTEM ONLINE
+            </div>
+
+            <p>CINEBOT DISCOVERY SYSTEM</p>
+            <small>VERSION 3.0</small>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- HERO -->
+        <section class="hero" id="homeSection">
+
+            <div class="hero-grid"></div>
+
+            <div class="hero-content">
+
+               
+                <h1>
+                    Discover your next
+                    <span>favourite story.</span>
+                </h1>
+
+                <p class="hero-description">
+                    Explore an endless universe of movies, television
+                    and anime. Your next obsession starts here.
+                </p>
+
+                <!-- SEARCH -->
+                <div class="search-container" id="searchSection">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Search movies, TV shows or anime..."
+                        autocomplete="off"
+                        aria-label="Search entertainment titles"
+                        enterkeyhint="search"
+                    >
+
+                    <button id="searchButton" onclick="searchContent()">
+                        SEARCH <span>↗</span>
+                    </button>
+
+                </div>
+
+                <!-- CATEGORY SELECTOR -->
+                <div class="search-categories">
+
+                    <button
+                        class="category-button active"
+                        data-category="movie"
+                        onclick="selectCategory('movie', this)">
+                        <span>▣</span> Movies
+                    </button>
+
+                    <button
+                        class="category-button"
+                        data-category="tv"
+                        onclick="selectCategory('tv', this)">
+                        <span>▤</span> TV Shows
+                    </button>
+
+                    <button
+                        class="category-button"
+                        data-category="anime"
+                        onclick="selectCategory('anime', this)">
+                        <span>✦</span> Anime
+                    </button>
+
+                </div>
+
+                <!-- QUICK SEARCH -->
+                <div class="popular-searches">
+
+                    <span>QUICK SEARCH</span>
+
+                    <button onclick="quickSearch('One Piece')">One Piece</button>
+                    <button onclick="quickSearch('Boruto')">Boruto</button>
+                    <button onclick="quickSearch('Jujutsu Kaisen')">Jujutsu Kaisen</button>
+                    <button onclick="quickSearch('Naruto')">Naruto</button>
+
+                </div>
+
+            </div>
+
+          
+
+           
+
+        </section>
+
+
+        <div id="discoverView" hidden>
+
+        <!-- ADVANCED FILTERS -->
+        <section class="content-section filter-section" id="filterSection">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-eyebrow">PERSONALISE YOUR SEARCH</span>
+                    <h2>Advanced Filters</h2>
+                    <p>Find exactly what you are looking for.</p>
+                </div>
+
+                <span class="section-number">01 / FILTERS</span>
+
+            </div>
+
+            <details class="filter-panel" open>
+
+                <summary>
+                    <span>✦ Filter </span>
+                    <span class="filter-toggle">＋</span>
+                </summary>
+
+                <p class="filter-intro">
+                    Select genres, ratings, release years and other
+                    preferences to refine your results.
+                </p>
+
+                <div class="filter-grid">
+
+                    <!-- GENRES -->
+                    <div class="filter-field filter-wide">
+
+                        <label>GENRES</label>
+
+                        <div class="genre-list" id="genreOptions">
+                            <span class="filter-message">Loading genres...</span>
+                        </div>
+
+                    </div>
+
+                    <!-- ANIME TAGS -->
+                    <div class="filter-field filter-wide" id="animeTagsField" hidden>
+
+                        <label>ANIME TAGS</label>
+
+                        <div class="genre-list" id="tagOptions">
+                            <span class="filter-message">Loading tags...</span>
+                        </div>
+
+                    </div>
+
+                    <!-- YEAR -->
+                    <div class="filter-field" id="yearField">
+
+                        <label for="filterYear">RELEASE YEAR</label>
+
+                        <input
+                            type="number"
+                            id="filterYear"
+                            placeholder="e.g. 2024"
+                            min="1900"
+                            max="2100"
+                        >
+
+                    </div>
+
+                    <!-- RATING -->
+                    <div class="filter-field" id="ratingField">
+
+                        <label for="filterRating">MINIMUM RATING</label>
+
+                        <select id="filterRating">
+                            <option value="">Any rating</option>
+                            <option value="5">5.0+</option>
+                            <option value="6">6.0+</option>
+                            <option value="7">7.0+</option>
+                            <option value="8">8.0+</option>
+                            <option value="9">9.0+</option>
+                        </select>
+
+                    </div>
+
+                    <!-- LANGUAGE -->
+                    <div class="filter-field" id="languageField">
+
+                        <label for="filterLanguage">LANGUAGE</label>
+
+                        <select id="filterLanguage">
+                            <option value="">All languages</option>
+                            <option value="en">English</option>
+                            <option value="ja">Japanese</option>
+                            <option value="ko">Korean</option>
+                            <option value="hi">Hindi</option>
+                            <option value="ml">Malayalam</option>
+                            <option value="ta">Tamil</option>
+                            <option value="te">Telugu</option>
+                            <option value="fr">French</option>
+                            <option value="es">Spanish</option>
+                            <option value="zh">Chinese</option>
+                        </select>
+
+                    </div>
+
+                    <!-- COUNTRY -->
+                    <div class="filter-field" id="countryField">
+
+                        <label for="filterCountry">COUNTRY</label>
+
+                        <select id="filterCountry">
+                            <option value="">All countries</option>
+                            <option value="US">United States</option>
+                            <option value="IN">India</option>
+                            <option value="JP">Japan</option>
+                            <option value="KR">South Korea</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="FR">France</option>
+                            <option value="CN">China</option>
+                        </select>
+
+                    </div>
+
+                    <!-- VOTES -->
+                    <div class="filter-field" id="votesField">
+
+                        <label for="filterVotes">MINIMUM VOTES</label>
+
+                        <select id="filterVotes">
+                            <option value="">Any number</option>
+                            <option value="100">100+</option>
+                            <option value="500">500+</option>
+                            <option value="1000">1,000+</option>
+                            <option value="5000">5,000+</option>
+                            <option value="10000">10,000+</option>
+                        </select>
+
+                    </div>
+
+                    <!-- TV STATUS -->
+                    <div class="filter-field" id="tvStatusField" hidden>
+
+                        <label for="filterTvStatus">TV STATUS</label>
+
+                        <select id="filterTvStatus">
+                            <option value="">Any status</option>
+                            <option value="0">Returning Series</option>
+                            <option value="1">Planned</option>
+                            <option value="2">In Production</option>
+                            <option value="3">Ended</option>
+                            <option value="4">Cancelled</option>
+                        </select>
+
+                    </div>
+
+                    <!-- ANIME FORMAT -->
+                    <div class="filter-field" id="animeFormatField" hidden>
+
+                        <label for="filterAnimeFormat">ANIME FORMAT</label>
+
+                        <select id="filterAnimeFormat">
+                            <option value="">All formats</option>
+                            <option value="TV">TV</option>
+                            <option value="TV_SHORT">TV Short</option>
+                            <option value="MOVIE">Movie</option>
+                            <option value="SPECIAL">Special</option>
+                            <option value="OVA">OVA</option>
+                            <option value="ONA">ONA</option>
+                            <option value="MUSIC">Music</option>
+                        </select>
+
+                    </div>
+
+                    <!-- ANIME STATUS -->
+                    <div class="filter-field" id="animeStatusField" hidden>
+
+                        <label for="filterAnimeStatus">ANIME STATUS</label>
+
+                        <select id="filterAnimeStatus">
+                            <option value="">Any status</option>
+                            <option value="RELEASING">Currently Airing</option>
+                            <option value="FINISHED">Completed</option>
+                            <option value="NOT_YET_RELEASED">Upcoming</option>
+                            <option value="CANCELLED">Cancelled</option>
+                            <option value="HIATUS">Hiatus</option>
+                        </select>
+
+                    </div>
+
+                    <!-- ANIME SEASON -->
+                    <div class="filter-field" id="animeSeasonField" hidden>
+
+                        <label for="filterAnimeSeason">SEASON</label>
+
+                        <select id="filterAnimeSeason">
+                            <option value="">Any season</option>
+                            <option value="WINTER">Winter</option>
+                            <option value="SPRING">Spring</option>
+                            <option value="SUMMER">Summer</option>
+                            <option value="FALL">Fall</option>
+                        </select>
+
+                    </div>
+
+                    <!-- ANIME STUDIO -->
+                    <div class="filter-field" id="animeStudioField" hidden>
+
+                        <label for="filterStudio">ANIMATION STUDIO</label>
+
+                        <input
+                            type="text"
+                            id="filterStudio"
+                            list="studioSuggestions"
+                            placeholder="Search studio..."
+                            autocomplete="off"
+                        >
+
+                        <input type="hidden" id="filterStudioId">
+
+                        <datalist id="studioSuggestions"></datalist>
+
+                    </div>
+
+                    <!-- SORT -->
+                    <div class="filter-field">
+
+                        <label for="filterSort">SORT RESULTS</label>
+
+                        <select id="filterSort">
+                            <option value="popularity.desc">Most popular</option>
+                        </select>
+
+                    </div>
+
+                </div>
+
+                <!-- FILTER ACTIONS -->
+                <div class="filter-actions">
+
+                    <button id="applyFiltersButton" onclick="applyFilters()">
+                        APPLY FILTERS ↗
+                    </button>
+
+                    <button
+                        id="clearFiltersButton"
+                        class="secondary"
+                        onclick="clearFilters()">
+                        CLEAR ALL
+                    </button>
+
+                </div>
+
+                <p id="filterMessage" class="filter-message">
+                    Choose your filters and apply them.
+                </p>
+
+            </details>
+
+        </section>
+
+
+        <!-- POPULAR ANIME -->
+        <section class="content-section" id="popularSection">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-eyebrow">ANIME UNIVERSE</span>
+                    <h2>Popular Anime</h2>
+                    <p>Start exploring some fan favourites.</p>
+                </div>
+
+                <span class="section-number">02 / POPULAR</span>
+
+            </div>
+
+            <div class="quick-cards">
+
+                <a class="quick-card" href="/universe/anime?q=One%20Piece">
+                    <span class="quick-card-number">01</span>
+                    <span class="quick-card-icon">☠</span>
+                    <h3>One Piece</h3>
+                    <p>Adventure beyond the horizon.</p>
+                    <span class="card-arrow">↗</span>
+                </a>
+
+                <a class="quick-card" href="/universe/anime?q=Jujutsu%20Kaisen">
+                    <span class="quick-card-number">02</span>
+                    <span class="quick-card-icon">✧</span>
+                    <h3>Jujutsu Kaisen</h3>
+                    <p>Enter the world of curses.</p>
+                    <span class="card-arrow">↗</span>
+                </a>
+
+                <a class="quick-card" href="/universe/anime?q=Demon%20Slayer">
+                    <span class="quick-card-number">03</span>
+                    <span class="quick-card-icon">⚔</span>
+                    <h3>Demon Slayer</h3>
+                    <p>A journey of courage.</p>
+                    <span class="card-arrow">↗</span>
+                </a>
+
+                <a class="quick-card" href="/universe/anime?q=Solo%20Leveling">
+                    <span class="quick-card-number">04</span>
+                    <span class="quick-card-icon">◈</span>
+                    <h3>Solo Leveling</h3>
+                    <p>Rise beyond your limits.</p>
+                    <span class="card-arrow">↗</span>
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- SEARCH RESULTS -->
+        <section class="content-section results-section" id="resultsSection">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-eyebrow">YOUR DISCOVERY FEED</span>
+                    <h2>Search Results</h2>
+                    <p>Everything you discover appears here.</p>
+                </div>
+
+                <span class="section-number">03 / RESULTS</span>
+
+            </div>
+
+            <div id="results">
+
+                <div class="welcome-card">
+
+                    <div class="welcome-icon">✦</div>
+
+                    <span class="section-eyebrow">WELCOME TO CINEBOT</span>
+
+                    <h3>Your next favourite is waiting.</h3>
+
+                    <p>
+                        Search for a movie, television show or anime
+                        to begin your discovery.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CHOOSE YOUR UNIVERSE -->
+        <section class="content-section" id="categoriesSection">
+
+            <div class="section-heading">
+
+                <div>
+                    <span class="section-eyebrow">EXPLORE BY CATEGORY</span>
+                    <h2>Choose Your Universe</h2>
+                    <p>Four worlds. Endless stories. One destination.</p>
+                </div>
+
+                <span class="section-number">04 / EXPLORE</span>
+
+            </div>
+
+            <div class="browse-grid">
+
+                <!-- ANIME -->
+                <a href="/universe/anime"
+                   class="browse-card anime-browse">
+
+                    <span class="browse-icon">✦</span>
+                    <h3>Anime Universe</h3>
+                    <p>Explore anime, discover new series, and find your next obsession.</p>
+                    <span class="browse-arrow">ENTER UNIVERSE ↗</span>
+
+                </a>
+
+                <!-- MOVIES -->
+                <a href="/universe/movies"
+                   class="browse-card movie-browse">
+
+                    <span class="browse-icon">▣</span>
+                    <h3>Movie Universe</h3>
+                    <p>Discover cinematic adventures, blockbusters and hidden gems.</p>
+                    <span class="browse-arrow">ENTER UNIVERSE ↗</span>
+
+                </a>
+
+                <!-- TV SHOWS -->
+                <a href="/universe/tv"
+                   class="browse-card tv-browse">
+
+                    <span class="browse-icon">▤</span>
+                    <h3>TV Universe</h3>
+                    <p>Explore incredible series, trending shows and unforgettable stories.</p>
+                    <span class="browse-arrow">ENTER UNIVERSE ↗</span>
+
+                </a>
+
+                <!-- DISCOVER -->
+                <a href="/discover"
+                   class="browse-card discover-browse">
+
+                    <span class="browse-icon">◈</span>
+                    <h3>Discover Universe</h3>
+                    <p>Explore everything together. Find hidden gems and unexpected favourites.</p>
+                    <span class="browse-arrow">START DISCOVERING ↗</span>
+
+                </a>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="main-footer">
+
+            <div class="footer-brand">
+                <span class="footer-symbol">✦</span>
+                <h2>CINEBOT<span> 3.0</span></h2>
+            </div>
+
+            <p>
+                Discover stories. Explore universes.
+                Find your next favourite.
+            </p>
+
+            <div class="footer-bottom">
+                <span>© 2026 CINEBOT</span>
+                <span>BUILT FOR ENTERTAINMENT EXPLORERS</span>
+            </div>
+
+        </footer>
+
+</div>
+
+    </main>
+
+</div>
+
+<script src="{{ url_for('static', filename='status.js') }}"></script>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+<script src="{{ url_for('static', filename='suggestions.js') }}"></script>
+
+<script>
+(function () {
+    const hero = document.getElementById('homeSection');
+    const discover = document.getElementById('discoverView');
+    const filterSection = document.getElementById('filterSection');
+    const results = document.getElementById('resultsSection');
+
+    let hasSearched = false;
+    let filtersApplied = false;
+
+    function showHome() {
+        discover.hidden = true;
+        hero.hidden = false;
+        if (hasSearched && !filtersApplied) {
+            hero.after(results);
+            results.hidden = false;
+        } else {
+            results.hidden = true;
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showDiscover(targetId) {
+        hero.hidden = true;
+        discover.hidden = false;
+        if (filtersApplied) {
+            filterSection.after(results);
+            results.hidden = false;
+        } else {
+            results.hidden = true;
+        }
+        const target = document.getElementById(targetId);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // Search from the home page: results appear directly under the search bar
+    function showSearchResults() {
+        hasSearched = true;
+        filtersApplied = false;
+        discover.hidden = true;
+        hero.hidden = false;
+        hero.after(results);
+        results.hidden = false;
+        results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // Sidebar links
+    document.querySelectorAll('.navigation a.nav-link').forEach(link => {
+        link.addEventListener('click', event => {
+            const href = link.getAttribute('href') || '';
+
+            if (href === '#filterSection' || href === '#popularSection' || href === '#categoriesSection') {
+                event.preventDefault();
+                showDiscover(href.slice(1));
+            }
+
+            if (href === '#searchSection') {
+                event.preventDefault();
+                showHome();
+                document.getElementById('searchInput').focus();
+            }
+        });
+    });
+
+    // Search button, Enter key and quick search buttons
+    const searchButton = document.getElementById('searchButton');
+    const searchInput = document.getElementById('searchInput');
+
+    if (searchButton) {
+        searchButton.addEventListener('click', showSearchResults);
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter') showSearchResults();
+        });
+    }
+
+    document.querySelectorAll('.popular-searches button').forEach(button => {
+        button.addEventListener('click', showSearchResults);
+    });
+
+    // Apply and clear in Advanced Filters: results appear under the filter panel
+    const originalApply = window.applyFilters;
+    const originalClear = window.clearFilters;
+
+    window.applyFilters = function () {
+        filtersApplied = true;
+        filterSection.after(results);
+        results.hidden = false;
+        if (originalApply) originalApply.apply(this, arguments);
+        setTimeout(() => results.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+    };
+
+    window.clearFilters = function () {
+        filtersApplied = false;
+        results.hidden = true;
+        if (originalClear) originalClear.apply(this, arguments);
+    };
+})();
+</script>
+
+</body>
+</html>
