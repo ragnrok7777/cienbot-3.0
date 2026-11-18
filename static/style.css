@@ -4373,3 +4373,19 @@ body::before {
         height: 44px;
     }
 }
+
+/* ===== Smooth scrolling on phones and touch screens ===== */
+@media (max-width: 900px), (hover: none) {
+    * {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .similar-card:hover,
+    .cast-card:hover,
+    .card:hover,
+    .popular-card:hover,
+    .universe-card:hover {
+        transform: none !important;
+    }
+}
